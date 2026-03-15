@@ -4,6 +4,9 @@ FROM php:8.2-apache
 # Mengaktifkan mod_rewrite (berguna jika Anda memakai routing/htaccess nantinya)
 RUN a2enmod rewrite
 
+# Memastikan Apache membaca Environment Variable FIREBASE_CREDENTIALS dari Render
+RUN echo "PassEnv FIREBASE_CREDENTIALS" >> /etc/apache2/conf-enabled/environment.conf
+
 # Menyalin seluruh kode dari repositori Anda ke dalam folder public HTML Apache
 COPY . /var/www/html/
 

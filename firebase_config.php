@@ -5,7 +5,8 @@ require __DIR__ . '/vendor/autoload.php';
 use Kreait\Firebase\Factory;
 
 // Ambil credentials dari environment variable (Untuk Render/Production)
-$firebaseCredentials = getenv('FIREBASE_CREDENTIALS');
+// Di beberapa server Apache/Docker, getenv() bisa kosong, jadi kita cek juga $_SERVER dan $_ENV
+$firebaseCredentials = getenv('FIREBASE_CREDENTIALS') ?: ($_SERVER['FIREBASE_CREDENTIALS'] ?? ($_ENV['FIREBASE_CREDENTIALS'] ?? null));
 $serviceAccountFilePath = __DIR__ . '/firebase-credentials.json';
 
 // Bypass SSL Verification khusus untuk Localhost WAMP dengan file cacert asli
