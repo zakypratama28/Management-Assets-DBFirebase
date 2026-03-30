@@ -1,4 +1,10 @@
 <?php
+// Jika URL root menerima ?mode=verifyEmail (dari Firebase email link), forward ke handler
+if (!empty($_GET['mode'])) {
+    $params = http_build_query($_GET);
+    header('Location: verify-email.php?' . $params);
+    exit;
+}
 require_once 'includes/auth_check.php';
 $activePage = 'dashboard';
 $pageTitle  = 'Dashboard';
