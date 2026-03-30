@@ -30,17 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $user = $auth->createUser($userProps);
 
-            // Kirim email verifikasi via Firebase Action Code URL
-            // Action URL redirect ke login.php dengan query ?verified=1
-            $actionCodeSettings = \Kreait\Firebase\Request\CreateActionLink::forEmailVerification(
-                $email,
-                []
-            );
-
-            // Kirim verification link
-            $verificationLink = $auth->getEmailVerificationLink($email);
-
-            // Kirim email menggunakan fungsi built-in Firebase (Admin SDK)
+            // Kirim email verifikasi via Firebase Admin SDK
             $auth->sendEmailVerificationLink($email);
 
             $verificationSent = true;
